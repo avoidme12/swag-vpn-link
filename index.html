@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>SwagVPN Redirect</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body { background: #0f0f0f; color: #00ffa3; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; text-align: center; }
+        .loader { border: 4px solid #1a1a1a; border-top: 4px solid #00ffa3; border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite; margin-bottom: 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="loader"></div>
+        <p>Открываем SwagVPN...</p>
+    </div>
+
+    <script>
+        window.onload = function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const key = urlParams.get('key');
+            
+            if (key) {
+                // Пытаемся открыть приложение по твоей схеме
+                const deepLink = "swagvpn://" + encodeURIComponent(key);
+                window.location.href = deepLink;
+
+                // Если через 3 секунды мы всё еще тут — значит приложение не установлено
+                setTimeout(() => {
+                    if (!document.hidden) {
+                        if (confirm("Похоже, приложение SwagVPN не установлено. Перейти к загрузке?")) {
+                            window.location.href = "https://github.com/avoidme12/swag-vpn/releases";
+                        }
+                    }
+                }, 3000);
+            } else {
+                document.body.innerHTML = "<p>Ошибка: Ключ не найден.</p>";
+            }
+        };
+    </script>
+</body>
+</html>

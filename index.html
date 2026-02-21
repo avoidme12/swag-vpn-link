@@ -18,7 +18,8 @@
 
     <script>
         window.onload = function() {
-            const urlParams = new URLSearchParams(window.location.search);
+            const hash = window.location.hash.substring(1); 
+            const urlParams = new URLSearchParams(hash);
             const key = urlParams.get('key');
             
             if (key) {
@@ -41,3 +42,4 @@
     </script>
 </body>
 </html>
+

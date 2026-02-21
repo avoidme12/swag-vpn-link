@@ -36,7 +36,7 @@
 
         // Формируем Deep Link. 
         // Добавляем параметр ?key=, чтобы приложению было легче его распарсить
-        const deepLink = "swagvpn://" + encodeURIComponent(key);
+        const deepLink = "swagvpn:/" + encodeURIComponent(key);
         
         // Переход
         window.location.href = deepLink;
@@ -57,5 +57,6 @@
     </script>
 </body>
 </html>
+
 
 

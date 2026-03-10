@@ -17,22 +17,18 @@
     </div>
 
     <script>
-    const hash = window.location.hash.substring(1); 
-    let key = hash.includes('key=') ? new URLSearchParams(hash).get('key') : hash;
-
-    if (key && key.length > 5) {
-        const encodedKey = encodeURIComponent(key);
-        const deepLink = "swagvpn://" + encodedKey;
-        
-        console.log("Отправляем:", deepLink);
+        const hash = window.location.hash.substring(1); 
+        let key = "";
+        if (hash.includes('key=')) {
+        const urlParams = new URLSearchParams(hash);
+        key = urlParams.get('key');
+        } else {
+            key = hash;
+        }
+        const deepLink = "swagvpn://" + encodeURIComponent(key);
         window.location.href = deepLink;
-    }
-</script>
+    </script>
 </body>
 </html>
-
-
-
-
 
 

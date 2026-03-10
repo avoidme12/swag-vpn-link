@@ -17,47 +17,20 @@
     </div>
 
     <script>
-        const hash = window.location.hash.substring(1); 
-    console.log("Содержимое hash:", hash);
-
-    let key = "";
-
-    if (hash.includes('key=')) {
-        // Если ссылка формата #key=BASE64
-        const urlParams = new URLSearchParams(hash);
-        key = urlParams.get('key');
-    } else {
-        // Если ссылка формата просто #BASE64
-        key = hash;
-    }
+    const hash = window.location.hash.substring(1); 
+    let key = hash.includes('key=') ? new URLSearchParams(hash).get('key') : hash;
 
     if (key && key.length > 5) {
-        console.log("Ключ определен:", key);
-
-        // Формируем Deep Link. 
-        // Добавляем параметр ?key=, чтобы приложению было легче его распарсить
-        const deepLink = "swagvpn://" + encodeURIComponent(key);
+        const encodedKey = encodeURIComponent(key);
+        const deepLink = "swagvpn://" + encodedKey;
         
-        // Переход
-        console.log(deepLink)
+        console.log("Отправляем:", deepLink);
         window.location.href = deepLink;
-
-        // Таймер на случай, если приложение не открылось
-        setTimeout(() => {
-            if (!document.hidden) {
-                // Показываем кнопку, если автопереход не сработал
-                if (confirm("Похоже, приложение SwagVPN не установлено. Перейти к загрузке?")) {
-                            window.location.href = "https://github.com/avoidme12/swag-vpn/releases";
-                        }
-            }
-        }, 2500);
-    } else {
-        console.error("Ключ пустой или слишком короткий");
-        document.body.innerHTML = "<p>Ошибка: Ключ не найден в URL или пуст.</p>";
     }
-    </script>
+</script>
 </body>
 </html>
+
 
 
 
